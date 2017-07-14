@@ -9,8 +9,8 @@ import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-
-import java.util.concurrent.TimeUnit;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 
 /**
@@ -18,7 +18,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class LogInTests {
     private static WebDriver driver;
-    private WebDriver mainPage;
+
 
 
     @BeforeClass
@@ -28,7 +28,6 @@ public class LogInTests {
         driver.navigate().to("https://reports.spd-ukraine.com/login");
         WebDriver.Options manage = driver.manage();
         manage.window().setSize(new Dimension(1920,1080));
-        manage.timeouts().implicitlyWait(30, TimeUnit.SECONDS);
     }
 
 
@@ -42,60 +41,51 @@ public class LogInTests {
         passwordField.sendKeys("London02");
         WebElement singIn = driver.findElement(By.cssSelector("*[class^='buttonText text-center']"));
         singIn.click();
-        //WebElement modalClose = driver.findElement(By.cssSelector("#bodyContainer"));
 
-        Thread.sleep(300);
+
+        WebDriverWait waitModal;
+        waitModal = new WebDriverWait(driver, 1000);
+        waitModal.until(ExpectedConditions.elementToBeClickable(By.cssSelector(".modal-dialog button")));
 
         WebElement modalClose = driver.findElement(By.cssSelector(".modal-dialog button"));
         modalClose.click();
-        Thread.sleep(800);
 
-
-        /*WebDriverWait wait = new WebDriverWait(driver, 2);
-        wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.partialLinkText("trackTime")));*/
-
-        WebElement tabCalendar = driver.findElement(By.linkText("Calendar"));
-        tabCalendar.click();
+        WebDriverWait waitElement;
+        waitElement = new WebDriverWait(driver, 100000000);
+        waitElement.until(ExpectedConditions.elementToBeClickable(By.linkText("Calendar"))).click();
         String urlCalendar = driver.getCurrentUrl();
-        String urlAfterLoginCalendar = driver.getCurrentUrl();
-        Assert.assertEquals("https://reports.spd-ukraine.com/calendar", urlAfterLoginCalendar);
+        Assert.assertEquals("https://reports.spd-ukraine.com/calendar", urlCalendar);
+
 
         WebElement tabStatistics = driver.findElement(By.linkText("Statistics"));
-        // Alternative variant: WebElement tabSite = driver.findElement(By.cssSelector("#bs-navbar-collapse-1 > ul:nth-child(1) > li:nth-child(3) a"));
         tabStatistics.click();
         String urlStatistics = driver.getCurrentUrl();
-        String urlAfterLoginStatistics = driver.getCurrentUrl();
-        Assert.assertEquals("https://reports.spd-ukraine.com/statistics", urlAfterLoginStatistics);
+        Assert.assertEquals("https://reports.spd-ukraine.com/statistics", urlStatistics);
 
         WebElement tabUsers = driver.findElement(By.linkText("Users"));
         tabUsers.click();
         String urlUsers = driver.getCurrentUrl();
-        String urlAfterLoginUsers = driver.getCurrentUrl();
-        Assert.assertEquals("https://reports.spd-ukraine.com/users", urlAfterLoginUsers);
+        Assert.assertEquals("https://reports.spd-ukraine.com/users", urlUsers);
 
         WebElement tabLibrary = driver.findElement(By.linkText("Library"));
         tabLibrary.click();
         String urlLibrary = driver.getCurrentUrl();
-        String urlAfterLoginLibrary = driver.getCurrentUrl();
-        Assert.assertEquals("https://reports.spd-ukraine.com/library", urlAfterLoginLibrary);
+        Assert.assertEquals("https://reports.spd-ukraine.com/library", urlLibrary);
 
         WebElement tabContacts = driver.findElement(By.linkText("Contacts"));
         tabContacts.click();
         String urlContacts = driver.getCurrentUrl();
-        String urlAfterLoginContacts = driver.getCurrentUrl();
-        Assert.assertEquals("https://reports.spd-ukraine.com/contacts", urlAfterLoginContacts);
+        Assert.assertEquals("https://reports.spd-ukraine.com/contacts", urlContacts);
 
-        Thread.sleep(300);
 
-        //WebElement userLogOut = driver.findElement(By.linkText("Helen"));
         WebElement userLogOut = driver.findElement(By.cssSelector("#bs-navbar-collapse-1 > ul.nav.navbar-nav.navbar-right > li > a"));
         userLogOut.click();
-        Thread.sleep(300);
+
+
         WebElement logOut = driver.findElement(By.linkText("LogOut"));
         logOut.click();
-        String urlLogOut = driver.getCurrentUrl();
-        String urlAfterLogOut = driver.getCurrentUrl();
-        Assert.assertEquals("https://reports.spd-ukraine.com/login", urlAfterLogOut);
+        String urlLogIn = driver.getCurrentUrl();
+        Assert.assertEquals("https://reports.spd-ukraine.com/login", urlLogIn);
 
 
     }
