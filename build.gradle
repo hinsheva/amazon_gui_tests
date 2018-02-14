@@ -19,5 +19,4 @@ dependencies {
     compile group: 'org.junit.jupiter', name: 'junit-jupiter-migrationsupport', version: '5.0.2'
     //testCompile group: 'org.testng', name: 'testng', version: '6.11'
     testCompile group: 'org.seleniumhq.selenium', name: 'selenium-server', version: '3.8.1'
-
 }
