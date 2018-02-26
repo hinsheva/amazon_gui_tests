@@ -24,7 +24,6 @@ public class HomePage {
     }
 
     public SearchResultsPage searchForItem(String itemName) throws InterruptedException {
-        Thread.sleep(50000);
         WebElement search = driver.findElement(searchFieldLocator);
         search.click();
         search.clear();
