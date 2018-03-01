@@ -1,6 +1,5 @@
 package com.amazon.pages;
 
-import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
@@ -11,28 +10,27 @@ public class CartPage {
         this.driver = driver;
     }
 
-    private By proceedToCheckoutButtonLocator = By.xpath("//*[@id=\"hlb-ptc-btn\"]");
-    private By cartItemNameLocator = By.xpath("//span[contains(text(),'Silver Bay: A Novel by Jojo Moyes (2014-08-26)')]");
-    private By successfulTitleForCartAddedItem = By.xpath("//h1[contains(text(),'Added to Basket')]");
-    private By itemDetailsArrowButton = By.xpath("//i[@class='a-icon a-icon-popover huc-v2-order-row-down-arrow']");
+    private By proceedToCheckoutButtonLocator = By.id("hlb-ptc-btn");
+    private By cartItemNameLocator = By.id("mdp-title");
+    private By successfulTitleForCartAddedItem = By.id("huc-v2-order-row-confirm-text");
+    private By itemDetailsArrowButton = By.id("huc-v2-order-row-item-B01MXF1PXY");
 
-    public CheckoutPageDelivery checkItemAndProceedToCheckout(String itemName, String successfulTitle){
-        checkCartItem(itemName);
-        checkSuccessfulTitleForCartAddedItem(successfulTitle);
+    //Press button to proceed to Checkout Page
+    public CheckoutPageDelivery proceedToCheckout() {
         driver.findElement(proceedToCheckoutButtonLocator).click();
         return new CheckoutPageDelivery(driver);
     }
 
-    private void checkCartItem(String itemName){
-        checkItemDetails();
-        Assert.assertEquals(itemName, driver.findElement(cartItemNameLocator).getText());
-    }
-
-    private void checkItemDetails(){
+    //Press the button to see Item Details Info
+    public void getItemDetails() {
         driver.findElement(itemDetailsArrowButton).click();
     }
 
-    private void checkSuccessfulTitleForCartAddedItem(String successfulTitle){
-        Assert.assertEquals(successfulTitle, driver.findElement(successfulTitleForCartAddedItem).getText());
+    public String getAddedToCartItemTitle() {
+        return driver.findElement(successfulTitleForCartAddedItem).getText();
+    }
+
+    public String getItemName() {
+        return driver.findElement(cartItemNameLocator).getText();
     }
 }

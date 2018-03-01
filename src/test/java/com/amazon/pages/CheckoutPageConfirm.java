@@ -1,7 +1,6 @@
 package com.amazon.pages;
 
 
-import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -19,31 +18,19 @@ public class CheckoutPageConfirm {
     private By loadingImageLocator = By.xpath("//img[@class='loading-spinner-spp-img']");
     private By yourOrderHasBeenPlacedLocator = By.xpath("//h2[@class='a-color-success']");
 
-    public HomePage checkSuccessfullyPlacedOrder(String successTitle) {
-        Assert.assertEquals(successTitle, driver.findElement(yourOrderHasBeenPlacedLocator).getText());
-        return new HomePage(driver);
-    }
-
+    //Press the button to confirm Payment and proceed to Order Confirmation Info
     public void submitPayment() {
         WebDriverWait wait = new WebDriverWait(driver, 5);
         WebElement button = driver.findElement(clickBuyNowButtonLocator);
         wait.until(ExpectedConditions.invisibilityOfElementLocated(loadingImageLocator));
         button.click();
     }
+
+    public String getTitle() {
+//        WebDriverWait wait = new WebDriverWait(driver, 5);
+//        WebElement successForm = driver.findElement(yourOrderHasBeenPlacedLocator);
+//        wait.until(ExpectedConditions.visibilityOfElementLocated(yourOrderHasBeenPlacedLocator));
+//        return successForm.getText();
+        return driver.findElement(yourOrderHasBeenPlacedLocator).getText();
+    }
 }
-    /*public void submitPayment() {
-         driver.findElement(clickBuyNowButtonLocator).click();
-
-         OR
-
-        WebElement button = driver.findElement(clickBuyNowButtonLocator);
-        Actions actions = new Actions(driver);
-        actions.moveToElement(button).click().perform();
-
-        OR
-
-        JavascriptExecutor js = (JavascriptExecutor)driver;
-        js.executeScript("arguments[0].scrollIntoView()", button);
-
-        button.click();
-    }*/

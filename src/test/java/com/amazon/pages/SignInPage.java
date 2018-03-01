@@ -3,7 +3,6 @@ package com.amazon.pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 
 public class SignInPage {
     private WebDriver driver;
@@ -12,13 +11,13 @@ public class SignInPage {
         this.driver = driver;
     }
 
-    private By createYourAmazonAccountButtonLocator = By.xpath("//*[@id=\"createAccountSubmit\"]");
-    private By emailInputLocator = By.xpath("//*[@id=\"ap_email\"]");
-    private By passwordInputLocator = By.xpath("//*[@id=\"ap_password\"]");
-    private By continueButtonLocator = By.xpath("//*[@id=\"continue\"]");
-    private By signInButtonLocator = By.xpath("//*[@id=\"signInSubmit\"]");
+    private By createYourAmazonAccountButtonLocator = By.id("createAccountSubmit");
+    private By emailInputLocator = By.id("ap_email");
+    private By passwordInputLocator = By.id("ap_password");
+    private By continueButtonLocator = By.id("continue");
+    private By signInButtonLocator = By.id("signInSubmit");
 
-
+    //Login to User's Amazon Account. Note two different forms can appear.
     public HomePage logIn(String email, String password) {
         typeEmail(email);
         try {
@@ -34,29 +33,28 @@ public class SignInPage {
         return new HomePage(driver);
     }
 
-    public CreateAccountPage clickCreateYourAmazonAccountButton(){
+    //Press the button to navigate to account creation page
+    public CreateAccountPage clickCreateYourAmazonAccountButton() {
         driver.findElement(createYourAmazonAccountButtonLocator).click();
         return new CreateAccountPage(driver);
     }
 
+    //Fill 'email' field with user's email info
     private void typeEmail(String email) {
-        WebElement login = driver.findElement(emailInputLocator);
-        login.click();
-        login.clear();
-        login.sendKeys(email);
+        driver.findElement(emailInputLocator).sendKeys(email);
     }
 
+    //Press the button to continue login process
     private void clickContinueButton() {
         driver.findElement(continueButtonLocator).click();
     }
 
+    //Fill 'password' field with user's password info
     private void typePassword(String password) {
-        WebElement login = driver.findElement(passwordInputLocator);
-        login.click();
-        login.clear();
-        login.sendKeys(password);
+        driver.findElement(passwordInputLocator).sendKeys(password);
     }
 
+    //Press the button to submit login
     private void clickSignInButton() {
         driver.findElement(signInButtonLocator).click();
     }

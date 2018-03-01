@@ -10,9 +10,10 @@ public class ItemDetailsPage {
         this.driver = driver;
     }
 
-    private By addToBasketLocator = By.xpath("//*[@id=\"add-to-cart-button-ubb\"]");
+    private By addToBasketLocator = By.id("add-to-cart-button-ubb");
 
-    public CartPage addItemToCart(){
+    //Press button to add the item to the Basket/Cart and navigate to Basket Page
+    public CartPage addItemToCart() {
         driver.findElement(addToBasketLocator).click();
         return new CartPage(driver);
     }
