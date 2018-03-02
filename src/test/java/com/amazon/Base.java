@@ -101,6 +101,6 @@ public class Base {
 
     @AfterAll
     public static void tearDown() {
-        //driver.close();
+        driver.close();
     }
 }
