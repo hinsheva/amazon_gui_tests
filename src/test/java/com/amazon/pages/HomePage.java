@@ -23,14 +23,12 @@ public class HomePage {
 
     //Get search results for the query(item name)
     public SearchResultsPage searchForItem(String itemName) {
-        driver.findElement(searchFieldLocator).sendKeys(itemName);
-        runSearch();
-        return new SearchResultsPage(driver);
-    }
 
-    //Press button to run the search
-    private void runSearch() {
+        driver.findElement(searchFieldLocator).sendKeys(itemName);
+
         driver.findElement(searchButtonLocator).click();
+
+        return new SearchResultsPage(driver);
     }
 
     public String getTitle() {

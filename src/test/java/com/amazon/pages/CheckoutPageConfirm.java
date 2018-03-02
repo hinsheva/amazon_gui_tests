@@ -27,10 +27,6 @@ public class CheckoutPageConfirm {
     }
 
     public String getTitle() {
-//        WebDriverWait wait = new WebDriverWait(driver, 5);
-//        WebElement successForm = driver.findElement(yourOrderHasBeenPlacedLocator);
-//        wait.until(ExpectedConditions.visibilityOfElementLocated(yourOrderHasBeenPlacedLocator));
-//        return successForm.getText();
         return driver.findElement(yourOrderHasBeenPlacedLocator).getText();
     }
 }

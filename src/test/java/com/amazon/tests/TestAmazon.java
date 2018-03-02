@@ -71,7 +71,7 @@ class TestAmazon extends Settings {
                 USERINFO_PROPERTIES.getProperty("user.name"), USERINFO_PROPERTIES.getProperty("user.address"), USERINFO_PROPERTIES.getProperty("user.city"),
                 USERINFO_PROPERTIES.getProperty("user.postcode"), USERINFO_PROPERTIES.getProperty("user.testPhone"));
         CheckoutPagePay paymentPage = deliveryOption.submitDeliveryOption();
-        CheckoutPageConfirm orderConfirmationPage = paymentPage.fillCreditCardInfo(USERINFO_PROPERTIES.getProperty("user.name"), USERINFO_PROPERTIES.getProperty("card.testNumber"),
+        CheckoutPageConfirm orderConfirmationPage = paymentPage.selectPaymentMethod(USERINFO_PROPERTIES.getProperty("user.name"), USERINFO_PROPERTIES.getProperty("card.testNumber"),
                 USERINFO_PROPERTIES.getProperty("card.expirationMonth"), USERINFO_PROPERTIES.getProperty("card.expirationYear"));
         orderConfirmationPage.submitPayment();
 

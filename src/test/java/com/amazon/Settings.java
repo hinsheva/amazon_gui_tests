@@ -60,6 +60,6 @@ public class Settings {
 
     @AfterAll
     public static void tearDown() {
-        driver.close();
+        //driver.close();
     }
 }

@@ -1,9 +1,6 @@
 package com.amazon.pages;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -20,48 +17,39 @@ public class CheckoutPagePay {
     private By expirationYearDropDown = By.xpath("//select[@id='ccYear']");
     private By addYourCardButtonLocator = By.id("ccAddCard");
     private By clickContinueButtonLocator = By.id("continue-bottom");
+    private By preSavedPaymentMethodRadioButtonLocator = By.id("pm_0");
 
-    //Fill all required user's credit card info to submit Payment and proceed to Confirmation Page
-    public CheckoutPageConfirm fillCreditCardInfo(String name, String cardNumber, String expirationMonth, String expirationYear) {
-        typeName(name);
-        typeCardNumber(cardNumber);
-        selectExpirationMonth(expirationMonth);
-        selectExpirationYear(expirationYear);
-        clickAddYourCardButton();
+    //Select Payment Method(use pre-saved card or save new one) and proceed to Confirmation Page
+    public CheckoutPageConfirm selectPaymentMethod(String name, String cardNumber, String expirationMonth, String expirationYear) {
+        try {
+            driver.findElement(preSavedPaymentMethodRadioButtonLocator).isEnabled();
+        } catch (NoSuchElementException e) {
+            saveNewCreditCard(name, cardNumber, expirationMonth, expirationYear);
+            clickContinueButton();
+            return new CheckoutPageConfirm(driver);
+        }
         clickContinueButton();
         return new CheckoutPageConfirm(driver);
     }
 
-    //Fill 'card name' field with user's name
-    private void typeName(String name) {
+    //Fill all required fields and save new credit card
+    private void saveNewCreditCard(String name, String cardNumber, String month, String year){
         driver.findElement(nameOnCardInputLocator).sendKeys(name);
-    }
 
-    //Fill 'card number' field with user's card number
-    private void typeCardNumber(String cardNumber) {
         driver.findElement(cardNumberInputLocator).sendKeys(cardNumber);
-    }
 
-    //Select 'card Expiration Month' from the drop-down
-    private void selectExpirationMonth(String month) {
-        WebElement dropdown = driver.findElement(expirationMonthDropDown);
-
+        //Select 'card Expiration Month' from the drop-down
+        WebElement monthDropdown = driver.findElement(expirationMonthDropDown);
         JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("arguments[0].setAttribute('style', 'display: block;')", dropdown);
-        dropdown.sendKeys(month);
-    }
+        js.executeScript("arguments[0].setAttribute('style', 'display: block;')", monthDropdown);
+        monthDropdown.sendKeys(month);
 
-    //Select 'card Expiration Year' from the drop-down
-    private void selectExpirationYear(String year) {
-        WebElement dropdown = driver.findElement(expirationYearDropDown);
+        //Select 'card Expiration Year' from the drop-down
+        WebElement yearDropdown = driver.findElement(expirationYearDropDown);
+        JavascriptExecutor jsex = (JavascriptExecutor) driver;
+        jsex.executeScript("arguments[0].setAttribute('style', 'display: block;')", yearDropdown);
+        yearDropdown.sendKeys(year);
 
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("arguments[0].setAttribute('style', 'display: block;')", dropdown);
-        dropdown.sendKeys(year);
-    }
-
-    //Press the button to save the card info
-    private void clickAddYourCardButton() {
         driver.findElement(addYourCardButtonLocator).click();
     }
 

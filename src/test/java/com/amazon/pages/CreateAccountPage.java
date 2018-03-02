@@ -18,32 +18,18 @@ public class CreateAccountPage {
 
     //Create new User Account
     public HomePage createNewAccount(String name, String email, String password) {
-        typeName(name);
-        typeEmail(email);
-        typePassword(password);
-        typePasswordConfirmation(password);
-        driver.findElement(createYourAmazonAccountButtonLocator).click();
-        return new HomePage(driver);
-    }
 
-    //Fill 'email' field with user's email
-    private void typeEmail(String email) {
-        driver.findElement(emailInputLocator).sendKeys(email);
-    }
-
-    //Fill 'name' field with user's name
-    private void typeName(String name) {
         driver.findElement(nameInputLocator).sendKeys(name);
-    }
 
-    //Fill 'password' field with user's password
-    private void typePassword(String password) {
+        driver.findElement(emailInputLocator).sendKeys(email);
+
         driver.findElement(passwordInputLocator).sendKeys(password);
-    }
 
-    //Fill 'password confirmation' field with user's password
-    private void typePasswordConfirmation(String password) {
         driver.findElement(reEnterPasswordInputLocator).sendKeys(password);
+
+        driver.findElement(createYourAmazonAccountButtonLocator).click();
+
+        return new HomePage(driver);
     }
 }
 

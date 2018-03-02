@@ -19,17 +19,20 @@ public class SignInPage {
 
     //Login to User's Amazon Account. Note two different forms can appear.
     public HomePage logIn(String email, String password) {
-        typeEmail(email);
+        driver.findElement(emailInputLocator).sendKeys(email);
         try {
             driver.findElement(continueButtonLocator).isEnabled();
         } catch (NoSuchElementException e) {
-            typePassword(password);
-            clickSignInButton();
+            driver.findElement(passwordInputLocator).sendKeys(password);
+
+            driver.findElement(signInButtonLocator).click();
             return new HomePage(driver);
         }
-        clickContinueButton();
-        typePassword(password);
-        clickSignInButton();
+        driver.findElement(continueButtonLocator).click();
+
+        driver.findElement(passwordInputLocator).sendKeys(password);
+
+        driver.findElement(signInButtonLocator).click();
         return new HomePage(driver);
     }
 
@@ -37,25 +40,5 @@ public class SignInPage {
     public CreateAccountPage clickCreateYourAmazonAccountButton() {
         driver.findElement(createYourAmazonAccountButtonLocator).click();
         return new CreateAccountPage(driver);
-    }
-
-    //Fill 'email' field with user's email info
-    private void typeEmail(String email) {
-        driver.findElement(emailInputLocator).sendKeys(email);
-    }
-
-    //Press the button to continue login process
-    private void clickContinueButton() {
-        driver.findElement(continueButtonLocator).click();
-    }
-
-    //Fill 'password' field with user's password info
-    private void typePassword(String password) {
-        driver.findElement(passwordInputLocator).sendKeys(password);
-    }
-
-    //Press the button to submit login
-    private void clickSignInButton() {
-        driver.findElement(signInButtonLocator).click();
     }
 }
