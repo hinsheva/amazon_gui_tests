@@ -16,9 +16,12 @@ https://www.google.com/chrome/
 https://mvnrepository.com/repos/central
 
 repositories {
+
     mavenCentral()
-    }
+}
+    
 dependencies {
+
     testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.0.2'
     testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-params', version: '5.0.2'
     testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.0.2'
@@ -47,28 +50,28 @@ OVERVIEW
 Project structure:
 
 ├──java package
-│
-└──├──com package
-│
-├──├──├──amazon package
-│
-├──├──├──├──pages package
-│
-├──├──├──├──tests package
-│
-├──├──├──├──Settings class
-│
-├──resources package
-│
+
 ├──├──com package
-│
+
 ├──├──├──amazon package
-│
-├──├──├──├──README.md file
-│
+
+├──├──├──├──pages package
+
+├──├──├──├──tests package
+
+├──├──├──├──BasePage class
+
+├──resources package
+
+├──├──com package
+
+├──├──├──amazon package
+
 ├──├──├──├──testData.properties file
-│
-└──├──├──config.properties file
+
+│──├──config.properties file
+
+└──├──README.md file
 
 amazon package - Includes packages and classes required for Amazon webApp testing
 pages in amazon package - Includes PageObject of Amazon webApp

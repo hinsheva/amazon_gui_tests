@@ -3,6 +3,9 @@ package com.amazon.pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
+import static com.amazon.Base.clickElement;
+import static com.amazon.Base.inputData;
+
 public class CreateAccountPage {
     private WebDriver driver;
 
@@ -18,17 +21,11 @@ public class CreateAccountPage {
 
     //Create new User Account
     public HomePage createNewAccount(String name, String email, String password) {
-
-        driver.findElement(nameInputLocator).sendKeys(name);
-
-        driver.findElement(emailInputLocator).sendKeys(email);
-
-        driver.findElement(passwordInputLocator).sendKeys(password);
-
-        driver.findElement(reEnterPasswordInputLocator).sendKeys(password);
-
-        driver.findElement(createYourAmazonAccountButtonLocator).click();
-
+        inputData(nameInputLocator, name);
+        inputData(emailInputLocator, email);
+        inputData(passwordInputLocator, password);
+        inputData(reEnterPasswordInputLocator, password);
+        clickElement(createYourAmazonAccountButtonLocator);
         return new HomePage(driver);
     }
 }

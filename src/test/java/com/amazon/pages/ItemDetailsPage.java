@@ -3,6 +3,8 @@ package com.amazon.pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
+import static com.amazon.Base.clickElement;
+
 public class ItemDetailsPage {
     private WebDriver driver;
 
@@ -10,11 +12,11 @@ public class ItemDetailsPage {
         this.driver = driver;
     }
 
-    private By addToBasketLocator = By.id("add-to-cart-button-ubb");
+    private By addToBasketButtonLocator = By.id("add-to-cart-button-ubb");
 
     //Press button to add the item to the Basket/Cart and navigate to Basket Page
     public CartPage addItemToCart() {
-        driver.findElement(addToBasketLocator).click();
+        clickElement(addToBasketButtonLocator);
         return new CartPage(driver);
     }
 }

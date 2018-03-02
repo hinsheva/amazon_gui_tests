@@ -3,6 +3,9 @@ package com.amazon.pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
+import static com.amazon.Base.clickElement;
+import static com.amazon.Base.getElementText;
+
 public class SearchResultsPage {
     private WebDriver driver;
 
@@ -15,11 +18,11 @@ public class SearchResultsPage {
 
     //Click on item information to navigate to the Item Details Page
     public ItemDetailsPage selectItem() {
-        driver.findElement(itemImageLinkLocator).click();
+        clickElement(itemImageLinkLocator);
         return new ItemDetailsPage(driver);
     }
 
     public String getTitle() {
-        return driver.findElement(itemNameLocator).getText();
+        return getElementText(itemNameLocator);
     }
 }

@@ -4,6 +4,10 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 
+import static com.amazon.Base.clickElement;
+import static com.amazon.Base.getElement;
+import static com.amazon.Base.inputData;
+
 public class SignInPage {
     private WebDriver driver;
 
@@ -19,26 +23,23 @@ public class SignInPage {
 
     //Login to User's Amazon Account. Note two different forms can appear.
     public HomePage logIn(String email, String password) {
-        driver.findElement(emailInputLocator).sendKeys(email);
+        inputData(emailInputLocator, email);
         try {
-            driver.findElement(continueButtonLocator).isEnabled();
+            getElement(continueButtonLocator).isEnabled();
         } catch (NoSuchElementException e) {
-            driver.findElement(passwordInputLocator).sendKeys(password);
-
-            driver.findElement(signInButtonLocator).click();
+            inputData(passwordInputLocator, password);
+            clickElement(signInButtonLocator);
             return new HomePage(driver);
         }
-        driver.findElement(continueButtonLocator).click();
-
-        driver.findElement(passwordInputLocator).sendKeys(password);
-
-        driver.findElement(signInButtonLocator).click();
+        clickElement(continueButtonLocator);
+        inputData(passwordInputLocator, password);
+        clickElement(signInButtonLocator);
         return new HomePage(driver);
     }
 
     //Press the button to navigate to account creation page
     public CreateAccountPage clickCreateYourAmazonAccountButton() {
-        driver.findElement(createYourAmazonAccountButtonLocator).click();
+        clickElement(createYourAmazonAccountButtonLocator);
         return new CreateAccountPage(driver);
     }
 }

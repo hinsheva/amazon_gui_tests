@@ -3,6 +3,9 @@ package com.amazon.pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
+import static com.amazon.Base.clickElement;
+import static com.amazon.Base.getElementText;
+
 public class CartPage {
     private WebDriver driver;
 
@@ -12,25 +15,25 @@ public class CartPage {
 
     private By proceedToCheckoutButtonLocator = By.id("hlb-ptc-btn");
     private By cartItemNameLocator = By.id("mdp-title");
-    private By successfulTitleForCartAddedItem = By.id("huc-v2-order-row-confirm-text");
-    private By itemDetailsArrowButton = By.id("huc-v2-order-row-item-B01MXF1PXY");
+    private By successfulTitleForCartAddedItemLocator = By.id("huc-v2-order-row-confirm-text");
+    private By itemDetailsArrowButtonLocator = By.id("huc-v2-order-row-item-B01MXF1PXY");
 
     //Press button to proceed to Checkout Page
     public CheckoutPageDelivery proceedToCheckout() {
-        driver.findElement(proceedToCheckoutButtonLocator).click();
+        clickElement(proceedToCheckoutButtonLocator);
         return new CheckoutPageDelivery(driver);
     }
 
     //Press the button to see Item Details Info
     public void getItemDetails() {
-        driver.findElement(itemDetailsArrowButton).click();
+        clickElement(itemDetailsArrowButtonLocator);
     }
 
     public String getAddedToCartItemTitle() {
-        return driver.findElement(successfulTitleForCartAddedItem).getText();
+        return getElementText(successfulTitleForCartAddedItemLocator);
     }
 
     public String getItemName() {
-        return driver.findElement(cartItemNameLocator).getText();
+        return getElementText(cartItemNameLocator);
     }
 }

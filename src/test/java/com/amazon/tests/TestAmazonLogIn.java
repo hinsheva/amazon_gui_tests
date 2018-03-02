@@ -1,12 +1,12 @@
 package com.amazon.tests;
 
-import com.amazon.Settings;
+import com.amazon.Base;
 import com.amazon.pages.HomePage;
 import com.amazon.pages.SignInPage;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 
-class TestAmazonLogIn extends Settings {
+class TestAmazonLogIn extends Base {
 
     @Test
     void testLogIn() {

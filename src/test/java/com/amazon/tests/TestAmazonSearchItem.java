@@ -1,12 +1,12 @@
 package com.amazon.tests;
 
-import com.amazon.Settings;
+import com.amazon.Base;
 import com.amazon.pages.HomePage;
 import com.amazon.pages.SearchResultsPage;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 
-class TestAmazonSearchItem extends Settings {
+class TestAmazonSearchItem extends Base {
 
     @Test
     void testSearchForItem() {

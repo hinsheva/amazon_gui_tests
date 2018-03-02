@@ -2,7 +2,10 @@ package com.amazon.pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.Select;
+
+import static com.amazon.Base.clickElement;
+import static com.amazon.Base.inputData;
+import static com.amazon.Base.selectDropDownValue;
 
 public class CheckoutPageDelivery {
     private WebDriver driver;
@@ -18,7 +21,6 @@ public class CheckoutPageDelivery {
     private By addressInputLocator = By.id("enterAddressAddressLine1");
     private By cityInputLocator = By.id("enterAddressCity");
     private By submitDeliveryAddressButtonLocator = By.xpath("//input[@name='shipToThisAddress']");
-    private By countriesListLocator = By.id("enterAddressCountryCode");
 
     //Submit Delivery Info and proceed to Delivery Options Page
     public CheckoutPageDeliveryOptions fillAndSubmitDeliveryInfo(String countryName, String fullName, String address, String city, String postcode, String phoneNumber) {
@@ -27,27 +29,20 @@ public class CheckoutPageDelivery {
         return new CheckoutPageDeliveryOptions(driver);
     }
 
-
     //Fill all required user's delivery info
     private void fillDeliveryInfo(String countryName, String fullName, String address, String city, String postcode, String phoneNumber){
         //Select user's country form the delivery address drop-down
-        driver.findElement(countryDropDownLocator).click();
-        Select countryOption = new Select(driver.findElement(countriesListLocator));
-        countryOption.selectByVisibleText(countryName);
-
-        driver.findElement(fullNameInputLocator).sendKeys(fullName);
-
-        driver.findElement(addressInputLocator).sendKeys(address);
-
-        driver.findElement(cityInputLocator).sendKeys(city);
-
-        driver.findElement(postcodeInputLocator).sendKeys(postcode);
-
-        driver.findElement(phoneNumberInputLocator).sendKeys(phoneNumber);
+        clickElement(countryDropDownLocator);
+        selectDropDownValue(countryDropDownLocator, countryName);
+        inputData(fullNameInputLocator, fullName);
+        inputData(addressInputLocator, address);
+        inputData(cityInputLocator, city);
+        inputData(postcodeInputLocator, postcode);
+        inputData(phoneNumberInputLocator, phoneNumber);
     }
 
     //Press the button to confirm Delivery Address
     public void submitDeliveryInfo() {
-        driver.findElement(submitDeliveryAddressButtonLocator).click();
+        clickElement(submitDeliveryAddressButtonLocator);
     }
 }

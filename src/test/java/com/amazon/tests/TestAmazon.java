@@ -1,8 +1,8 @@
 package com.amazon.tests;
 
-import com.amazon.Settings;
+import com.amazon.Base;
 
-class TestAmazon extends Settings {
+class TestAmazon extends Base {
 
 /*    @Test
     void testLogIn() {

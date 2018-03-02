@@ -1,11 +1,11 @@
 package com.amazon.tests;
 
-import com.amazon.Settings;
+import com.amazon.Base;
 import com.amazon.pages.*;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 
-class TestSmokeAmazon extends Settings {
+class TestSmokeAmazon extends Base {
 
     @Test
     void testFullOrderProcess() {

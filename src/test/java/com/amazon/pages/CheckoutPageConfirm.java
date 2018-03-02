@@ -3,9 +3,8 @@ package com.amazon.pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+
+import static com.amazon.Base.*;
 
 public class CheckoutPageConfirm {
     private WebDriver driver;
@@ -14,19 +13,17 @@ public class CheckoutPageConfirm {
         this.driver = driver;
     }
 
-    private By clickBuyNowButtonLocator = By.xpath("//input[@value='Buy now']");
+    private By buyNowButtonLocator = By.xpath("//input[@value='Buy now']");
     private By loadingImageLocator = By.xpath("//img[@class='loading-spinner-spp-img']");
-    private By yourOrderHasBeenPlacedLocator = By.xpath("//h2[@class='a-color-success']");
+    private By yourOrderHasBeenPlacedTitleLocator = By.xpath("//h2[@class='a-color-success']");
 
     //Press the button to confirm Payment and proceed to Order Confirmation Info
     public void submitPayment() {
-        WebDriverWait wait = new WebDriverWait(driver, 5);
-        WebElement button = driver.findElement(clickBuyNowButtonLocator);
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(loadingImageLocator));
-        button.click();
+        waitUntilElementDisappears(loadingImageLocator);
+        clickElement(buyNowButtonLocator);
     }
 
     public String getTitle() {
-        return driver.findElement(yourOrderHasBeenPlacedLocator).getText();
+        return getElementText(yourOrderHasBeenPlacedTitleLocator);
     }
 }

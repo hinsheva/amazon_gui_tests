@@ -1,11 +1,11 @@
 package com.amazon.tests;
 
-import com.amazon.Settings;
+import com.amazon.Base;
 import com.amazon.pages.*;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 
-class TestAmazonAccountCreation extends Settings {
+class TestAmazonAccountCreation extends Base {
 
     @Test
     void testNewAccountCreation() {
