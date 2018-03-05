@@ -50,28 +50,28 @@ OVERVIEW
 Project structure:
 
 ├──java package
-
+│
 ├──├──com package
-
+│
 ├──├──├──amazon package
-
+│
 ├──├──├──├──pages package
-
+│
 ├──├──├──├──tests package
-
+│
 ├──├──├──├──BasePage class
-
+│
 ├──resources package
-
+│
 ├──├──com package
-
+│
 ├──├──├──amazon package
-
+│
 ├──├──├──├──testData.properties file
-
+│
 │──├──config.properties file
-
-└──├──README.md file
+│
+└─README.md file
 
 amazon package - Includes packages and classes required for Amazon webApp testing
 pages in amazon package - Includes PageObject of Amazon webApp
