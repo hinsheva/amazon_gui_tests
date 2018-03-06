@@ -1,15 +1,9 @@
-package com.amazon.pages;
+package com.amazon.page;
 
-import org.openqa.selenium.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.TimeoutException;
 
-import static com.amazon.Base.*;
-
-public class CheckoutPagePay {
-    private WebDriver driver;
-
-    CheckoutPagePay(WebDriver driver) {
-        this.driver = driver;
-    }
+public class CheckoutPagePay extends BasePage {
 
     private By nameOnCardInputLocator = By.id("ccName");
     private By cardNumberInputLocator = By.id("addCreditCardNumber");
@@ -26,30 +20,18 @@ public class CheckoutPagePay {
         } catch (TimeoutException e) {
             saveNewCreditCard(name, cardNumber, expirationMonth, expirationYear);
             clickContinueButton();
-            return new CheckoutPageConfirm(driver);
+            return new CheckoutPageConfirm();
         }
         clickContinueButton();
-        return new CheckoutPageConfirm(driver);
+        return new CheckoutPageConfirm();
     }
 
     //Fill all required fields and save new credit card
-    private void saveNewCreditCard(String name, String cardNumber, String month, String year){
+    private void saveNewCreditCard(String name, String cardNumber, String month, String year) {
         inputData(nameOnCardInputLocator, name);
         inputData(cardNumberInputLocator, cardNumber);
-
-        //Select 'card Expiration Month' from the drop-down
         setJsDropDownOption(expirationMonthDropDownLocator, month);
-//        JavascriptExecutor js = (JavascriptExecutor) driver;
-//        js.executeScript("arguments[0].setAttribute('style', 'display: block;')", monthDropdown);
-//        monthDropdown.sendKeys(month);
-
-        //Select 'card Expiration Year' from the drop-down
         setJsDropDownOption(expirationYearDropDownLocator, year);
-//        WebElement yearDropdown = driver.findElement(expirationYearDropDownLocator);
-//        JavascriptExecutor jsex = (JavascriptExecutor) driver;
-//        jsex.executeScript("arguments[0].setAttribute('style', 'display: block;')", yearDropdown);
-//        yearDropdown.sendKeys(year);
-
         clickElement(addYourCardButtonLocator);
     }
 

@@ -61,29 +61,33 @@ to run testPlacedOrder() or testLoggedInUser methods in the TestAmazon class
 
 ├──├──├──**amazon** package
 
-├──├──├──├──**pages** package
+├──├──├──├──**config** package
 
-├──├──├──├──**tests** package
+├──├──├──├──├──**ChromeBrowserDriver** class
 
-├──├──├──├──**Base** class
+├──├──├──├──├──**PropertiesHolder** class
+
+├──├──├──├──**page** package
+
+├──├──├──├──**test** package
 
 ├──**resources** package
 
-├──├──**com** package
+├──├──**config.properties** file
 
-├──├──├──**amazon** package
+├──├──**testData.properties** file
 
-├──├──├──├──**testData.properties** file
-
-└──├──**config.properties** file
+└──├──**webApp.properties** file
 
 * **amazon package** - Includes packages and classes required for Amazon webApp testing
-* **pages in amazon package** - Includes PageObject of Amazon webApp
-* **tests in amazon package** - Includes test classes for Amazon webApp functionality testing
-* **settings in amazon package** - Includes methods to set-up webdriver and properties
-* **resources package** - Includes two files with separately stored web.driver and userInfo properties(data)
+* **config in amazon package** - Includes classes for webDriver set-up and read properties from files
+* **page in amazon package** - Includes PageObject of Amazon webApp
+* **test in amazon package** - Includes test classes for Amazon webApp functionality testing
+* **resources package** - Includes three files with separately stored webDriver, userInfo and webApp properties(data)
+* **config.properties file in resources package** - Includes webDriver info that is need to access to driver and browser
 * **testData.properties file in resources package** - Includes all required user's test data to run the tests 
-* **config.properties file in resources package** - Includes web driver info that is need to access to driver and browser
+* **webApp.properties file in resources package** - Includes webApp info that is used in assertions
+
 
 
 

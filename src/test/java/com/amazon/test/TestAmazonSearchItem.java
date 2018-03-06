@@ -1,19 +1,18 @@
-package com.amazon.tests;
+package com.amazon.test;
 
-import com.amazon.Base;
-import com.amazon.pages.HomePage;
-import com.amazon.pages.SearchResultsPage;
+import com.amazon.config.ChromeBrowserDriver;
+import com.amazon.page.SearchResultsPage;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 
-class TestAmazonSearchItem extends Base {
+import static com.amazon.config.PropertiesHolder.USERINFO_PROPERTIES;
+
+class TestAmazonSearchItem extends ChromeBrowserDriver {
 
     @Test
     void testSearchForItem() {
-        HomePage homePage = new HomePage(driver);
         SearchResultsPage searchResultsPage = homePage.searchForItem(USERINFO_PROPERTIES.getProperty("item.name"));
         //Check item name within search results
         Assert.assertEquals(USERINFO_PROPERTIES.getProperty("item.name"), searchResultsPage.getTitle());
     }
 }
-

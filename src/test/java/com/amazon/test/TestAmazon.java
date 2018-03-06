@@ -1,8 +1,8 @@
-package com.amazon.tests;
+package com.amazon.test;
 
-import com.amazon.Base;
+import com.amazon.config.ChromeBrowserDriver;
 
-class TestAmazon extends Base {
+class TestAmazon extends ChromeBrowserDriver {
 
 /*    @Test
     void testLogIn() {

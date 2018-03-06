@@ -1,15 +1,17 @@
-package com.amazon.tests;
+package com.amazon.test;
 
-import com.amazon.Base;
-import com.amazon.pages.*;
+import com.amazon.config.ChromeBrowserDriver;
+import com.amazon.page.CreateAccountPage;
+import com.amazon.page.SignInPage;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 
-class TestAmazonAccountCreation extends Base {
+import static com.amazon.config.PropertiesHolder.USERINFO_PROPERTIES;
+
+class TestAmazonAccountCreation extends ChromeBrowserDriver {
 
     @Test
     void testNewAccountCreation() {
-        HomePage homePage = new HomePage(driver);
         SignInPage signInPage = homePage.clickSignInLink();
         CreateAccountPage createAccountPage = signInPage.clickCreateYourAmazonAccountButton();
         createAccountPage.createNewAccount(USERINFO_PROPERTIES.getProperty("user.name"), USERINFO_PROPERTIES.getProperty("user.testEmail"),
@@ -18,4 +20,3 @@ class TestAmazonAccountCreation extends Base {
         Assert.assertEquals("Hello, " + USERINFO_PROPERTIES.getProperty("user.name") + "\nYour Account", homePage.getTitle());
     }
 }
-

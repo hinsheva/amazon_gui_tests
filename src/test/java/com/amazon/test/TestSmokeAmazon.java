@@ -1,15 +1,17 @@
-package com.amazon.tests;
+package com.amazon.test;
 
-import com.amazon.Base;
-import com.amazon.pages.*;
+import com.amazon.config.ChromeBrowserDriver;
+import com.amazon.page.*;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 
-class TestSmokeAmazon extends Base {
+import static com.amazon.config.PropertiesHolder.USERINFO_PROPERTIES;
+import static com.amazon.config.PropertiesHolder.WEBAPPDATA_PROPERTIES;
+
+class TestSmokeAmazon extends ChromeBrowserDriver {
 
     @Test
     void testFullOrderProcess() {
-        HomePage homePage = new HomePage(driver);
         SignInPage signInPage = homePage.clickSignInLink();
         signInPage.logIn(USERINFO_PROPERTIES.getProperty("user.testEmail"), USERINFO_PROPERTIES.getProperty("user.testPassword"));
 
@@ -25,7 +27,7 @@ class TestSmokeAmazon extends Base {
         Assert.assertEquals(USERINFO_PROPERTIES.getProperty("item.name"), cartPage.getItemName());
 
         //Check that item was successfully added to cart
-        Assert.assertEquals(USERINFO_PROPERTIES.getProperty("title.itemInTheCart"), cartPage.getAddedToCartItemTitle());
+        Assert.assertEquals(WEBAPPDATA_PROPERTIES.getProperty("title.itemInTheCart"), cartPage.getAddedToCartItemTitle());
 
         CheckoutPageDelivery deliveryPage = cartPage.proceedToCheckout();
         CheckoutPageDeliveryOptions deliveryOption = deliveryPage.fillAndSubmitDeliveryInfo(USERINFO_PROPERTIES.getProperty("user.country"),
@@ -37,6 +39,6 @@ class TestSmokeAmazon extends Base {
         orderConfirmationPage.submitPayment();
 
         //Check successful title about placed order on the home page
-        Assert.assertEquals(USERINFO_PROPERTIES.getProperty("title.successfulOrder"), orderConfirmationPage.getTitle());
+        Assert.assertEquals(WEBAPPDATA_PROPERTIES.getProperty("title.successfulOrder"), orderConfirmationPage.getTitle());
     }
 }

@@ -1,17 +1,8 @@
-package com.amazon.pages;
-
+package com.amazon.page;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 
-import static com.amazon.Base.*;
-
-public class CheckoutPageConfirm {
-    private WebDriver driver;
-
-    CheckoutPageConfirm(WebDriver driver) {
-        this.driver = driver;
-    }
+public class CheckoutPageConfirm extends BasePage {
 
     private By buyNowButtonLocator = By.xpath("//input[@value='Buy now']");
     private By loadingImageLocator = By.xpath("//img[@class='loading-spinner-spp-img']");
