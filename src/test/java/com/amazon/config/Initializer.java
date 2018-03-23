@@ -7,13 +7,23 @@ import org.openqa.selenium.WebDriver;
 
 import java.util.concurrent.TimeUnit;
 
-public abstract class ChromeBrowserDriver {
-    //Set web driver(Chrome) and navigate to webApp(Amazon.com)
-    public static WebDriver driver;
-    public static HomePage homePage;
+
+public abstract class Initializer {
+    //This Class setUp web driver(Chrome), navigate to webApp(Amazon.com) and initialize the initial webApp page(Home)
+
+    private static WebDriver driver;
+    private static HomePage homePage;
+
+    public static WebDriver getDriver() {
+        return driver;
+    }
+
+    public static HomePage getHomePage() {
+        return homePage;
+    }
 
     @BeforeAll
-    static void setUp() throws Exception {
+    public static void setUp() {
         //SetUp WebDriver Properties
         String driverName = PropertiesHolder.WEBDRIVER_PROPERTIES.getProperty("driver.name");
         String driverPath = PropertiesHolder.WEBDRIVER_PROPERTIES.getProperty("driver.path");

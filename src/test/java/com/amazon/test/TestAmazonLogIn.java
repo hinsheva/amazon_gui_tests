@@ -1,19 +1,19 @@
 package com.amazon.test;
 
-import com.amazon.config.ChromeBrowserDriver;
-import com.amazon.page.SignInPage;
-import org.junit.Assert;
+import com.amazon.page.BasePage;
 import org.junit.jupiter.api.Test;
 
 import static com.amazon.config.PropertiesHolder.USERINFO_PROPERTIES;
+import static org.junit.Assert.assertEquals;
 
-class TestAmazonLogIn extends ChromeBrowserDriver {
+public class TestAmazonLogIn extends BasePage {
 
     @Test
-    void testLogIn() {
-        SignInPage signInPage = homePage.clickSignInLink();
-        signInPage.logIn(USERINFO_PROPERTIES.getProperty("user.testEmail"), USERINFO_PROPERTIES.getProperty("user.testPassword"));
+    void testLogin() {
+        String userName = USERINFO_PROPERTIES.getProperty("user.name");
+        String authorizedUserTitle = "Hello, " + userName + "\nYour Account";
+        login();
         //Check user name on the home page after login
-        Assert.assertEquals("Hello, " + USERINFO_PROPERTIES.getProperty("user.name") + "\nYour Account", homePage.getTitle());
+        assertEquals(authorizedUserTitle, getHomePage().getTitle());
     }
 }

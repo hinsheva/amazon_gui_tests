@@ -1,6 +1,5 @@
 package com.amazon.test;
 
-import com.amazon.config.ChromeBrowserDriver;
 import com.amazon.page.*;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
@@ -8,37 +7,71 @@ import org.junit.jupiter.api.Test;
 import static com.amazon.config.PropertiesHolder.USERINFO_PROPERTIES;
 import static com.amazon.config.PropertiesHolder.WEBAPPDATA_PROPERTIES;
 
-class TestSmokeAmazon extends ChromeBrowserDriver {
+public class TestSmokeAmazon extends BasePage {
 
     @Test
-    void testFullOrderProcess() {
-        SignInPage signInPage = homePage.clickSignInLink();
-        signInPage.logIn(USERINFO_PROPERTIES.getProperty("user.testEmail"), USERINFO_PROPERTIES.getProperty("user.testPassword"));
+    void testLogin() {
+        String userName = USERINFO_PROPERTIES.getProperty("user.name");
+        String authorizedUserTitle = "Hello, " + userName + "\nYour Account";
+        login();
 
-        //Check user name on the home page after login
-        Assert.assertEquals("Hello, " + USERINFO_PROPERTIES.getProperty("user.name") + "\nYour Account", homePage.getTitle());
+        Assert.assertEquals(authorizedUserTitle, getHomePage().getTitle());
+    }
 
-        SearchResultsPage searchResultsPage = homePage.searchForItem(USERINFO_PROPERTIES.getProperty("item.name"));
-        ItemDetailsPage itemDetailsPage = searchResultsPage.selectItem();
-        CartPage cartPage = itemDetailsPage.addItemToCart();
+    @Test
+    void testSearch() {
+        String expectedItemName = USERINFO_PROPERTIES.getProperty("item.name");
+        String actualItemName = getHomePage().searchForItem(expectedItemName).getItemName();
+        getHomePage().searchForItem(expectedItemName);
+
+        Assert.assertEquals(expectedItemName, actualItemName);
+    }
+
+    @Test
+    void testCartItem() {
+        CartPage cartPage = addItemToCart();
         cartPage.getItemDetails();
+        String expectedItemName = USERINFO_PROPERTIES.getProperty("item.name");
+        String actualItemName = cartPage.getItemName();
+        String expectedAddedToCartTitle = WEBAPPDATA_PROPERTIES.getProperty("title.itemInTheCart");
+        String actualAddedToCartTitle = cartPage.getAddedToCartItemTitle();
 
-        //Check item name within search results
-        Assert.assertEquals(USERINFO_PROPERTIES.getProperty("item.name"), cartPage.getItemName());
+        Assert.assertEquals(expectedItemName, actualItemName);
+        Assert.assertEquals(expectedAddedToCartTitle, actualAddedToCartTitle);
+    }
 
-        //Check that item was successfully added to cart
-        Assert.assertEquals(WEBAPPDATA_PROPERTIES.getProperty("title.itemInTheCart"), cartPage.getAddedToCartItemTitle());
+    @Test
+    void testDeliveryInfoSubmitting() {
+        login();
+        CheckoutDeliveryOptionsPage deliveryOptionsPage = submitDeliveryInfoWithItemInCart();
+        String expectedPageTitle = WEBAPPDATA_PROPERTIES.getProperty("title.deliveryOptionsPage");
+        String actualPageTitle = deliveryOptionsPage.getTitle();
 
-        CheckoutPageDelivery deliveryPage = cartPage.proceedToCheckout();
-        CheckoutPageDeliveryOptions deliveryOption = deliveryPage.fillAndSubmitDeliveryInfo(USERINFO_PROPERTIES.getProperty("user.country"),
-                USERINFO_PROPERTIES.getProperty("user.name"), USERINFO_PROPERTIES.getProperty("user.address"), USERINFO_PROPERTIES.getProperty("user.city"),
-                USERINFO_PROPERTIES.getProperty("user.postcode"), USERINFO_PROPERTIES.getProperty("user.testPhone"));
-        CheckoutPagePay paymentPage = deliveryOption.submitDeliveryOption();
-        CheckoutPageConfirm orderConfirmationPage = paymentPage.selectPaymentMethod(USERINFO_PROPERTIES.getProperty("user.name"), USERINFO_PROPERTIES.getProperty("card.testNumber"),
-                USERINFO_PROPERTIES.getProperty("card.expirationMonth"), USERINFO_PROPERTIES.getProperty("card.expirationYear"));
-        orderConfirmationPage.submitPayment();
+        Assert.assertEquals(expectedPageTitle, actualPageTitle);
+    }
 
-        //Check successful title about placed order on the home page
-        Assert.assertEquals(WEBAPPDATA_PROPERTIES.getProperty("title.successfulOrder"), orderConfirmationPage.getTitle());
+    @Test
+    void testDeliveryOptionSubmitting() {
+        login();
+        addItemToCart();
+        CheckoutPaymentPage paymentPage = submitDeliveryInfoWithItemInCart().submitDeliveryOption();
+        String expectedPageTitle = WEBAPPDATA_PROPERTIES.getProperty("title.paymentMethodPage");
+        String actualPageTitle = paymentPage.getTitle();
+
+        Assert.assertEquals(expectedPageTitle, actualPageTitle);
+    }
+
+    @Test
+    void testPlaceOrder() {
+        login();
+        addItemToCart();
+        HomePage homePage = placeOrder();
+        String expectedPageTitle = WEBAPPDATA_PROPERTIES.getProperty("title.successfulOrder");
+        String actualPageTitle = homePage.getPlacedOrderTitle();
+        String expectedOrderTitle = WEBAPPDATA_PROPERTIES.getProperty("title.orderNumber");
+        String actualOrderTitle = homePage.getOrderInfo();
+
+        Assert.assertEquals(expectedPageTitle, actualPageTitle);
+        Assert.assertEquals(expectedOrderTitle, actualOrderTitle);
     }
 }

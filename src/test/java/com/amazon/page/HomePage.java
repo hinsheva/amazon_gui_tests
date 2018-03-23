@@ -9,6 +9,9 @@ public class HomePage extends BasePage {
     private By searchButtonLocator = By.xpath("//*[@id=\"nav-search\"]/form/div[2]/div/input");
     private By userAccountNameTextLocator = By.id("nav-link-yourAccount");
 
+    private By yourOrderHasBeenPlacedTitleLocator = By.xpath("//h2[@class='a-color-success']");
+    private By orderNumberTitleLocator = By.xpath("//h5[contains(text(),'Order Number:')]");
+
     //Press button to see the SignIn/LogIn form/page
     public SignInPage clickSignInLink() {
         clickElement(signInLinkLocator);
@@ -24,5 +27,13 @@ public class HomePage extends BasePage {
 
     public String getTitle() {
         return getElementText(userAccountNameTextLocator);
+    }
+
+    public String getPlacedOrderTitle() {
+        return getElementText(yourOrderHasBeenPlacedTitleLocator);
+    }
+
+    public String getOrderInfo(){
+        return getElementText(orderNumberTitleLocator).split(":")[0];
     }
 }

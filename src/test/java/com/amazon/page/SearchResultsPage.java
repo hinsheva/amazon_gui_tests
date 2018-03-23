@@ -13,7 +13,7 @@ public class SearchResultsPage extends BasePage {
         return new ItemDetailsPage();
     }
 
-    public String getTitle() {
+    public String getItemName() {
         return getElementText(itemNameLocator);
     }
 }

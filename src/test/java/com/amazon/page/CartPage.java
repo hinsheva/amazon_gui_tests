@@ -10,9 +10,9 @@ public class CartPage extends BasePage {
     private By itemDetailsArrowButtonLocator = By.id("huc-v2-order-row-item-B01MXF1PXY");
 
     //Press button to proceed to Checkout Page
-    public CheckoutPageDelivery proceedToCheckout() {
+    public CheckoutDeliveryPage proceedToCheckout() {
         clickElement(proceedToCheckoutButtonLocator);
-        return new CheckoutPageDelivery();
+        return new CheckoutDeliveryPage();
     }
 
     //Press the button to see Item Details Info
