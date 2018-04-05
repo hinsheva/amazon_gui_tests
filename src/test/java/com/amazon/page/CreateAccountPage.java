@@ -1,8 +1,13 @@
 package com.amazon.page;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 
 public class CreateAccountPage extends BasePage {
+
+    public CreateAccountPage(WebDriver driver) {
+        super(driver);
+    }
 
     private By nameInputLocator = By.id("ap_customer_name");
     private By emailInputLocator = By.id("ap_email");
@@ -17,6 +22,6 @@ public class CreateAccountPage extends BasePage {
         inputData(passwordInputLocator, password);
         inputData(reEnterPasswordInputLocator, password);
         clickElement(createYourAmazonAccountButtonLocator);
-        return new HomePage();
+        return new HomePage(driver);
     }
 }

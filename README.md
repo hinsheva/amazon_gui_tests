@@ -24,15 +24,23 @@ https://mvnrepository.com/repos/central
     
 ###### dependencies ######
 {
+ 
+    testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.1.0'
+    testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-params', version: '5.1.0'
+    testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.1.0'
+    testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-migrationsupport', version: '5.1.0'
 
-    testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.0.2'
-    testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-params', version: '5.0.2'
-    testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.0.2'
-    testCompile group: 'org.junit.platform', name: 'junit-platform-runner', version: '1.0.2'
-    testCompile group: 'org.junit.vintage', name: 'junit-vintage-engine', version: '4.12.2'
-    testCompile group: 'org.junit.platform', name: 'junit-platform-launcher', version: '1.0.2'
-    compile group: 'org.junit.jupiter', name: 'junit-jupiter-migrationsupport', version: '5.0.2'
+    testCompile group: 'org.junit.platform', name: 'junit-platform-runner', version: '1.1.0'
+    testCompile group: 'org.junit.platform', name: 'junit-platform-engine', version: '1.1.0'
+    testCompile group: 'org.junit.platform', name: 'junit-platform-launcher', version: '1.1.0'
+    testCompile group: 'org.junit.platform', name: 'junit-platform-suite-api', version: '1.1.0'
+    testCompile group: 'org.junit.platform', name: 'junit-platform-gradle-plugin', version: '1.1.0'
+
+    testCompile group: 'org.junit.vintage', name: 'junit-vintage-engine', version: '5.1.0'
+
     testCompile group: 'org.seleniumhq.selenium', name: 'selenium-server', version: '3.8.1'
+    testCompile group: 'org.seleniumhq.selenium', name: 'selenium-firefox-driver', version: '3.11.0'
+    
 }
 
 ###### _Note: **build.gradle** file(in the main root) - Includes all repository and dependency settings_ ######
@@ -63,9 +71,19 @@ to run testPlacedOrder() or testLoggedInUser methods in the TestAmazon class
 
 ├──├──├──├──**config** package
 
-├──├──├──├──├──**ChromeBrowserDriver** class
+├──├──├──├──├──**ChromeDriverManager** class
+
+├──├──├──├──├──**DriverManager** abstract class
+
+├──├──├──├──├──**DriverManagerFactory** class
+
+├──├──├──├──├──**DriveType** enum
+
+├──├──├──├──├──**FirefoxDriverManager** class
 
 ├──├──├──├──├──**PropertiesHolder** class
+
+├──├──├──├──├──**TestInitializer** class
 
 ├──├──├──├──**page** package
 
@@ -80,7 +98,8 @@ to run testPlacedOrder() or testLoggedInUser methods in the TestAmazon class
 └──├──**webApp.properties** file
 
 * **amazon package** - Includes packages and classes required for Amazon webApp testing
-* **config in amazon package** - Includes classes for webDriver set-up and read properties from files
+* **config in amazon package** - Includes classes for webDrivers set-up through Driver Manager Factory realization, 
+and provides ability to read the properties from separate files
 * **page in amazon package** - Includes PageObject of Amazon webApp
 * **test in amazon package** - Includes test classes for Amazon webApp functionality testing
 * **resources package** - Includes three files with separately stored webDriver, userInfo and webApp properties(data)

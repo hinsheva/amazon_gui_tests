@@ -2,8 +2,13 @@ package com.amazon.page;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.WebDriver;
 
 public class SignInPage extends BasePage {
+
+    public SignInPage(WebDriver driver) {
+        super(driver);
+    }
 
     private By createYourAmazonAccountButtonLocator = By.id("createAccountSubmit");
     private By emailInputLocator = By.id("ap_email");
@@ -19,17 +24,17 @@ public class SignInPage extends BasePage {
         } catch (NoSuchElementException e) {
             inputData(passwordInputLocator, password);
             clickElement(signInButtonLocator);
-            return new HomePage();
+            return new HomePage(driver);
         }
         clickElement(continueButtonLocator);
         inputData(passwordInputLocator, password);
         clickElement(signInButtonLocator);
-        return new HomePage();
+        return new HomePage(driver);
     }
 
     //Press the button to navigate to account creation page
     public CreateAccountPage clickCreateYourAmazonAccountButton() {
         clickElement(createYourAmazonAccountButtonLocator);
-        return new CreateAccountPage();
+        return new CreateAccountPage(driver);
     }
 }

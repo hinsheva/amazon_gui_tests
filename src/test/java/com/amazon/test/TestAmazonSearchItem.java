@@ -1,13 +1,12 @@
 package com.amazon.test;
 
-import com.amazon.page.BasePage;
+import com.amazon.config.TestInitializer;
 import org.junit.jupiter.api.Test;
 
-import static com.amazon.config.Initializer.getHomePage;
 import static com.amazon.config.PropertiesHolder.USERINFO_PROPERTIES;
 import static org.junit.Assert.assertEquals;
 
-class TestAmazonSearchItem extends BasePage {
+class TestAmazonSearchItem extends TestInitializer {
 
     @Test
     void testSearch() {

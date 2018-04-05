@@ -1,8 +1,13 @@
 package com.amazon.page;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 
 public class CheckoutDeliveryPage extends BasePage {
+
+    public CheckoutDeliveryPage(WebDriver driver) {
+        super(driver);
+    }
 
     private By countryDropDownLocator = By.id("enterAddressCountryCode");
     private By fullNameInputLocator = By.id("enterAddressFullName");
@@ -16,7 +21,7 @@ public class CheckoutDeliveryPage extends BasePage {
     public CheckoutDeliveryOptionsPage fillAndSubmitDeliveryInfo(String countryName, String fullName, String address, String city, String postcode, String phoneNumber) {
         fillDeliveryInfo(countryName, fullName, address, city, postcode, phoneNumber);
         submitDeliveryInfo();
-        return new CheckoutDeliveryOptionsPage();
+        return new CheckoutDeliveryOptionsPage(driver);
     }
 
     //Fill all required user's delivery info

@@ -2,8 +2,13 @@ package com.amazon.page;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
+import org.openqa.selenium.WebDriver;
 
 public class CheckoutPaymentPage extends BasePage {
+
+    public CheckoutPaymentPage(WebDriver driver) {
+        super(driver);
+    }
 
     private By nameOnCardInputLocator = By.id("ccName");
     private By cardNumberInputLocator = By.id("addCreditCardNumber");
@@ -22,10 +27,10 @@ public class CheckoutPaymentPage extends BasePage {
         } catch (TimeoutException e) {
             saveNewCreditCard(name, cardNumber, expirationMonth, expirationYear);
             clickContinueButton();
-            return new CheckoutConfirmationPage();
+            return new CheckoutConfirmationPage(driver);
         }
         clickContinueButton();
-        return new CheckoutConfirmationPage();
+        return new CheckoutConfirmationPage(driver);
     }
 
     //Fill all required fields and save new credit card

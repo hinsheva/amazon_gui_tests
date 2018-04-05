@@ -1,13 +1,13 @@
 package com.amazon.test;
 
-import com.amazon.page.BasePage;
+import com.amazon.config.TestInitializer;
 import org.junit.jupiter.api.Test;
 
 import static com.amazon.config.PropertiesHolder.USERINFO_PROPERTIES;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
-public class TestAmazonAccountCreation extends BasePage{
+class TestAmazonAccountCreation extends TestInitializer {
 
     @Test
     void testAccountCreation() {

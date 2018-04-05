@@ -1,8 +1,13 @@
 package com.amazon.page;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 
 public class CartPage extends BasePage {
+
+    public CartPage(WebDriver driver) {
+        super(driver);
+    }
 
     private By proceedToCheckoutButtonLocator = By.id("hlb-ptc-btn");
     private By cartItemNameLocator = By.id("mdp-title");
@@ -12,7 +17,7 @@ public class CartPage extends BasePage {
     //Press button to proceed to Checkout Page
     public CheckoutDeliveryPage proceedToCheckout() {
         clickElement(proceedToCheckoutButtonLocator);
-        return new CheckoutDeliveryPage();
+        return new CheckoutDeliveryPage(driver);
     }
 
     //Press the button to see Item Details Info
