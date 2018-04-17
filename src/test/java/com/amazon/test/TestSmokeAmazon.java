@@ -1,9 +1,13 @@
 //package com.amazon.test;
 //
 //import com.amazon.config.TestInitializer;
-//import com.amazon.page.*;
+//import com.amazon.page.CartPage;
+//import com.amazon.page.CheckoutDeliveryOptionsPage;
+//import com.amazon.page.CheckoutPaymentPage;
+//import com.amazon.page.ThankYouPage;
 //import org.junit.Assert;
 //import org.junit.jupiter.api.Test;
+//import org.junit.runner.RunWith;
 //
 //import static com.amazon.config.PropertiesHolder.USERINFO_PROPERTIES;
 //import static com.amazon.config.PropertiesHolder.WEBAPPDATA_PROPERTIES;

@@ -26,7 +26,7 @@ public class TestInitializer {
     }
 
     @BeforeEach
-    public void setUpDriver() {
+    public void setUpHomePage() {
         homePage = new HomePage(driverManager.getDriver());
     }
 

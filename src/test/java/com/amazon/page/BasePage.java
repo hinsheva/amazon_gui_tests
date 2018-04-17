@@ -28,7 +28,7 @@ public abstract class BasePage {
     }
 
     WebElement getElement(By locator) {
-        WebDriverWait wait = new WebDriverWait(driver, 5);
+        WebDriverWait wait = new WebDriverWait(driver, 10);
         WebElement webElement = wait.until(ExpectedConditions.elementToBeClickable(locator));
         return webElement;
     }

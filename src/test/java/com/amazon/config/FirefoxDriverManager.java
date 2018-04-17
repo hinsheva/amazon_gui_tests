@@ -2,6 +2,7 @@ package com.amazon.config;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.events.EventFiringWebDriver;
 
 import java.util.concurrent.TimeUnit;
 
@@ -14,9 +15,11 @@ public class FirefoxDriverManager extends DriverManager {
         String driverPath = PropertiesHolder.WEBDRIVER_PROPERTIES.getProperty("firefoxDriver.path");
         String websiteUrl = PropertiesHolder.WEBAPPDATA_PROPERTIES.getProperty("web.url");
 
-        //SetUP Driver
+        //SetUP Driver and connect EventListener
         System.setProperty(driverName, driverPath);
-        driver = new FirefoxDriver();
+        driver = new EventFiringWebDriver(new FirefoxDriver());
+        WebEventListener eventListener  = new WebEventListener();
+        ((EventFiringWebDriver) driver).register(eventListener);
         //Open WebApp
         driver.navigate().to(websiteUrl);
         // Maximize Browser Window

@@ -9,7 +9,7 @@ public class PropertiesHolder {
     public static final Properties USERINFO_PROPERTIES = readPropertiesFromFile("/testData.properties");
     public static final Properties WEBAPPDATA_PROPERTIES = readPropertiesFromFile("/webAppData.properties");
 
-    //Read webDriver, userInfo and webApp properties from the files that are stored in 'resources' package
+    //Read driver, userInfo and webApp properties from the files that are stored in 'resources' package
     private static Properties readPropertiesFromFile(String fileName) {
         Properties properties = new Properties();
         InputStream inputStream;

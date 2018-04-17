@@ -41,6 +41,9 @@ https://mvnrepository.com/repos/central
     testCompile group: 'org.seleniumhq.selenium', name: 'selenium-server', version: '3.8.1'
     testCompile group: 'org.seleniumhq.selenium', name: 'selenium-firefox-driver', version: '3.11.0'
     
+    testCompile 'org.slf4j:jcl-over-slf4j:1.7.25'
+    testCompile 'ch.qos.logback:logback-classic:1.2.2'
+    
 }
 
 ###### _Note: **build.gradle** file(in the main root) - Includes all repository and dependency settings_ ######
@@ -99,7 +102,7 @@ to run testPlacedOrder() or testLoggedInUser methods in the TestAmazon class
 
 * **amazon package** - Includes packages and classes required for Amazon webApp testing
 * **config in amazon package** - Includes classes for webDrivers set-up through Driver Manager Factory realization, 
-and provides ability to read the properties from separate files
+and provides ability to read the properties from separate files and store logs
 * **page in amazon package** - Includes PageObject of Amazon webApp
 * **test in amazon package** - Includes test classes for Amazon webApp functionality testing
 * **resources package** - Includes three files with separately stored webDriver, userInfo and webApp properties(data)

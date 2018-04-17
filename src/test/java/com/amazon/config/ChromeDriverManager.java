@@ -1,6 +1,7 @@
 package com.amazon.config;
 
 import org.openqa.selenium.WebDriver;
+
 import java.util.concurrent.TimeUnit;
 
 public class ChromeDriverManager extends DriverManager {
@@ -15,6 +16,7 @@ public class ChromeDriverManager extends DriverManager {
         //SetUP Driver
         System.setProperty(driverName, driverPath);
         driver = new org.openqa.selenium.chrome.ChromeDriver();
+
         //Open WebApp
         driver.navigate().to(websiteUrl);
         // Maximize Browser Window
