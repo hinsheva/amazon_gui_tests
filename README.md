@@ -9,7 +9,7 @@ This set of modules is a JUnit 5.0 based framework for Web testing of **Amazon.c
 * install java:
 http://www.oracle.com/technetwork/java/javase/downloads/index.html
 * install web driver:
-https://raw.githubusercontent.com/sinshev/base-test/master/utils/chromedriver
+https://raw.githubusercontent.com/sinshev/base-test/master/jira.utils/chromedriver
 * install ChromeBrowser
 https://www.google.com/chrome/
 * setUp in build.gradle file of the main root of your project the repository source and dependencies:
