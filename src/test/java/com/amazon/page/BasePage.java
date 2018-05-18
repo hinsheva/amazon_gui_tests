@@ -8,6 +8,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.List;
+
 public abstract class BasePage {
     WebDriver driver;
 
@@ -48,6 +50,21 @@ public abstract class BasePage {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("arguments[0].setAttribute('style', 'display: block;')", dropDown);
         dropDown.sendKeys(optionText);
+    }
+
+    void clickTableCellValue(By locatorTable, String value){
+        WebDriverWait wait = new WebDriverWait(driver, 20);
+        WebElement table = wait.until(ExpectedConditions.visibilityOfElementLocated(locatorTable));
+
+        List<WebElement> rows = table.findElements(By.tagName("tr"));
+        for(WebElement row: rows) {
+            List<WebElement> cells = row.findElements(By.tagName("td"));
+            for (WebElement cell : cells) {
+                if (cell.getText().contains(value))
+                    cell.findElement(By.xpath("//*/text()[normalize-space(.)='" + value + "']/parent::*")).click();
+
+            }
+        }
     }
 }
 

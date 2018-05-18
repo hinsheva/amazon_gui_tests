@@ -11,9 +11,9 @@ public class FirefoxDriverManager extends DriverManager {
     @Override
     public void createDriver() {
         //SetUp WebDriver Properties
-        String driverName = PropertiesHolder.WEBDRIVER_PROPERTIES.getProperty("firefoxDriver.name");
-        String driverPath = PropertiesHolder.WEBDRIVER_PROPERTIES.getProperty("firefoxDriver.path");
-        String websiteUrl = PropertiesHolder.WEBAPPDATA_PROPERTIES.getProperty("web.url");
+        String driverName = PropertiesHolder.getWebDriverProperty("firefoxDriver.name");
+        String driverPath = PropertiesHolder.getWebDriverProperty("firefoxDriver.path");
+        String websiteUrl = PropertiesHolder.getWebAppProperty("web.url");
 
         //SetUP Driver and connect EventListener
         System.setProperty(driverName, driverPath);

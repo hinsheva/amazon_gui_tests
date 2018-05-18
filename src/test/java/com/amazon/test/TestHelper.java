@@ -6,14 +6,14 @@ import com.amazon.page.HomePage;
 import com.amazon.page.ThankYouPage;
 import org.openqa.selenium.WebDriver;
 
-import static com.amazon.config.PropertiesHolder.USERINFO_PROPERTIES;
+import static com.amazon.config.PropertiesHolder.getUserInfoProperty;
 
 class TestHelper {
 
     //Methods used in Tests:
     static void login(HomePage homePage) {
-        String email = USERINFO_PROPERTIES.getProperty("user.testEmail");
-        String password = USERINFO_PROPERTIES.getProperty("user.testPassword");
+        String email = getUserInfoProperty("user.testEmail");
+        String password = getUserInfoProperty("user.testPassword");
         String notAuthorizedUserTitle = "Hello. Sign in\n" + "Your Account";
 
         if (homePage.getTitle().equals(notAuthorizedUserTitle)) {
@@ -23,7 +23,7 @@ class TestHelper {
     }
 
     static CartPage addItemToCart(HomePage homePage, WebDriver driver) {
-        String itemName = USERINFO_PROPERTIES.getProperty("item.name");
+        String itemName = getUserInfoProperty("item.name");
 
         homePage.searchForItem(itemName)
                 .selectItem()
@@ -32,12 +32,12 @@ class TestHelper {
     }
 
     static CheckoutDeliveryOptionsPage submitDeliveryInfoWithItemInCart(HomePage homePage, WebDriver driver) {
-        String country = USERINFO_PROPERTIES.getProperty("user.country");
-        String userName = USERINFO_PROPERTIES.getProperty("user.name");
-        String address = USERINFO_PROPERTIES.getProperty("user.address");
-        String city = USERINFO_PROPERTIES.getProperty("user.city");
-        String postcode = USERINFO_PROPERTIES.getProperty("user.postcode");
-        String phone = USERINFO_PROPERTIES.getProperty("user.testPhone");
+        String country = getUserInfoProperty("user.country");
+        String userName = getUserInfoProperty("user.name");
+        String address = getUserInfoProperty("user.address");
+        String city = getUserInfoProperty("user.city");
+        String postcode = getUserInfoProperty("user.postcode");
+        String phone = getUserInfoProperty("user.testPhone");
 
         addItemToCart(homePage,driver)
                 .proceedToCheckout()
@@ -46,10 +46,10 @@ class TestHelper {
     }
 
     static ThankYouPage placeOrder(HomePage homePage, WebDriver driver) {
-        String userName = USERINFO_PROPERTIES.getProperty("user.name");
-        String cardNumber = USERINFO_PROPERTIES.getProperty("card.testNumber");
-        String cardExpMonth = USERINFO_PROPERTIES.getProperty("card.expirationMonth");
-        String cardExpYear = USERINFO_PROPERTIES.getProperty("card.expirationYear");
+        String userName = getUserInfoProperty("user.name");
+        String cardNumber = getUserInfoProperty("card.testNumber");
+        String cardExpMonth = getUserInfoProperty("card.expirationMonth");
+        String cardExpYear = getUserInfoProperty("card.expirationYear");
 
         submitDeliveryInfoWithItemInCart(homePage, driver)
                 .submitDeliveryOption()

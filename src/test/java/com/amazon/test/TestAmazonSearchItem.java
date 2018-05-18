@@ -3,17 +3,15 @@ package com.amazon.test;
 import com.amazon.config.TestInitializer;
 import org.junit.jupiter.api.Test;
 
-import static com.amazon.config.PropertiesHolder.USERINFO_PROPERTIES;
-import static org.junit.Assert.assertEquals;
+import static com.amazon.config.PropertiesHolder.getUserInfoProperty;
+import static org.junit.Assert.assertTrue;
 
 class TestAmazonSearchItem extends TestInitializer {
 
     @Test
     void testSearch() {
-        String expectedItemName = USERINFO_PROPERTIES.getProperty("item.name");
-        String actualItemName = getHomePage().searchForItem(expectedItemName).getItemName();
-        getHomePage().searchForItem(expectedItemName);
+        String actualItemName = getHomePage().searchForItem(getUserInfoProperty("item.name")).getItemName();
         //Check search results per the query
-        assertEquals(expectedItemName, actualItemName);
+        assertTrue(getUserInfoProperty("item.name").contains(actualItemName));
     }
 }

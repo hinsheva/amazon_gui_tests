@@ -9,9 +9,9 @@ public class ChromeDriverManager extends DriverManager {
     @Override
     public void createDriver() {
         //SetUp WebDriver Properties
-        String driverName = PropertiesHolder.WEBDRIVER_PROPERTIES.getProperty("chromeDriver.name");
-        String driverPath = PropertiesHolder.WEBDRIVER_PROPERTIES.getProperty("chromeDriver.path");
-        String websiteUrl = PropertiesHolder.WEBAPPDATA_PROPERTIES.getProperty("web.url");
+        String driverName = PropertiesHolder.getWebDriverProperty("chromeDriver.name");
+        String driverPath = PropertiesHolder.getWebDriverProperty("chromeDriver.path");
+        String websiteUrl = PropertiesHolder.getWebAppProperty("web.url");
 
         //SetUP Driver
         System.setProperty(driverName, driverPath);

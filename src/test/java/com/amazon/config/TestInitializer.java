@@ -21,8 +21,7 @@ public class TestInitializer {
     }
 
     @BeforeAll
-    public static void setUpDriverManager() {
-        driverManager = DriverManagerFactory.getManager(DriverType.FIREFOX);
+    public static void setUpDriverManager() { driverManager = DriverManagerFactory.getManager(DriverType.CHROME);
     }
 
     @BeforeEach
@@ -31,7 +30,6 @@ public class TestInitializer {
     }
 
     @AfterAll
-    public static void tearDown() {
-        driverManager.getDriver().close();
+    public static void tearDown() { driverManager.getDriver().close();
     }
 }
