@@ -12,7 +12,7 @@ public class CartPage extends BasePage {
     private By proceedToCheckoutButtonLocator = By.id("hlb-ptc-btn");
     private By cartItemNameLocator = By.id("mdp-title");
     private By successfulTitleForCartAddedItemLocator = By.id("huc-v2-order-row-confirm-text");
-    private By itemDetailsArrowButtonLocator = By.id("huc-v2-order-row-item-B01MXF1PXY");
+    private By itemDetailsArrowButtonLocator = By.id("huc-v2-order-row-item-0143126482");
 
     //Press button to proceed to Checkout Page
     public CheckoutDeliveryPage proceedToCheckout() {

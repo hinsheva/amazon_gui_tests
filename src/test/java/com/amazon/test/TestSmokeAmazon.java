@@ -1,83 +1,76 @@
-//package com.amazon.test;
-//
-//import com.amazon.config.TestInitializer;
-//import com.amazon.page.CartPage;
-//import com.amazon.page.CheckoutDeliveryOptionsPage;
-//import com.amazon.page.CheckoutPaymentPage;
-//import com.amazon.page.ThankYouPage;
-//import org.junit.Assert;
-//import org.junit.jupiter.api.Test;
-//import org.junit.runner.RunWith;
-//
-//import static com.amazon.config.PropertiesHolder.USERINFO_PROPERTIES;
-//import static com.amazon.config.PropertiesHolder.WEBAPPDATA_PROPERTIES;
-//import static com.amazon.test.TestHelper.*;
-//
-//public class TestSmokeAmazon extends TestInitializer {
-//
-//    @Test
-//    void testLogin() {
-//        String userName = USERINFO_PROPERTIES.getProperty("user.name");
-//        String authorizedUserTitle = "Hello, " + userName + "\nYour Account";
-//        login(getHomePage());
-//
-//        Assert.assertEquals(authorizedUserTitle, getHomePage().getTitle());
-//    }
-//
-//    @Test
-//    void testSearch() {
-//        String expectedItemName = USERINFO_PROPERTIES.getProperty("item.name");
-//        String actualItemName = getHomePage().searchForItem(expectedItemName).getItemName();
-//        getHomePage().searchForItem(expectedItemName);
-//
-//        Assert.assertEquals(expectedItemName, actualItemName);
-//    }
-//
-//    @Test
-//    void testCartItem() {
-//        CartPage cartPage = addItemToCart(getHomePage(), getDriver());
-//        cartPage.getItemDetails();
-//        String expectedItemName = USERINFO_PROPERTIES.getProperty("item.name");
-//        String actualItemName = cartPage.getItemName();
-//        String expectedAddedToCartTitle = WEBAPPDATA_PROPERTIES.getProperty("title.itemInTheCart");
-//        String actualAddedToCartTitle = cartPage.getAddedToCartItemTitle();
-//
-//        Assert.assertEquals(expectedItemName, actualItemName);
-//        Assert.assertEquals(expectedAddedToCartTitle, actualAddedToCartTitle);
-//    }
-//
-//    @Test
-//    void testDeliveryInfoSubmitting() {
-//        login();
-//        CheckoutDeliveryOptionsPage deliveryOptionsPage = submitDeliveryInfoWithItemInCart(getHomePage(), getDriver());
-//        String expectedPageTitle = WEBAPPDATA_PROPERTIES.getProperty("title.deliveryOptionsPage");
-//        String actualPageTitle = deliveryOptionsPage.getTitle();
-//
-//        Assert.assertEquals(expectedPageTitle, actualPageTitle);
-//    }
-//
-//    @Test
-//    void testDeliveryOptionSubmitting() {
-//        login(getHomePage());
-//        addItemToCart(getHomePage(), getDriver());
-//        CheckoutPaymentPage paymentPage = submitDeliveryInfoWithItemInCart(getHomePage(), getDriver()).submitDeliveryOption();
-//        String expectedPageTitle = WEBAPPDATA_PROPERTIES.getProperty("title.paymentMethodPage");
-//        String actualPageTitle = paymentPage.getTitle();
-//
-//        Assert.assertEquals(expectedPageTitle, actualPageTitle);
-//    }
-//
-//    @Test
-//    void testPlaceOrder() {
-//        login(getHomePage());
-//        addItemToCart(getHomePage(), getDriver());
-//        ThankYouPage thankYouPage = placeOrder(getHomePage(), getDriver());
-//        String expectedPageTitle = WEBAPPDATA_PROPERTIES.getProperty("title.successfulOrder");
-//        String actualPageTitle = thankYouPage.getPlacedOrderTitle();
-//        String expectedOrderTitle = WEBAPPDATA_PROPERTIES.getProperty("title.orderNumber");
-//        String actualOrderTitle = thankYouPage.getOrderInfo();
-//
-//        Assert.assertEquals(expectedPageTitle, actualPageTitle);
-//        Assert.assertEquals(expectedOrderTitle, actualOrderTitle);
-//    }
-//}
+package com.amazon.test;
+
+import com.amazon.config.TestInitializer;
+import com.amazon.page.*;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
+
+import static com.amazon.config.PropertiesHolder.getUserInfoProperty;
+import static com.amazon.config.PropertiesHolder.getWebAppProperty;
+import static com.amazon.test.TestHelper.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
+class TestSmokeAmazon extends TestInitializer {
+
+    @Test
+    void testLogin() {
+        String authorizedUserTitle = "Hello, " + getUserInfoProperty("user.name") + "\nYour Account";
+        login(getHomePage());
+        //Check user name on the home page after login
+        assertEquals(authorizedUserTitle, getHomePage().getTitle());
+    }
+
+    @Test
+    void testSearch() {
+        String actualItemName = getHomePage().searchForItem(getUserInfoProperty("item.name")).getItemName();
+        //Check search results per the query
+        assertTrue(getUserInfoProperty("item.name").contains(actualItemName));
+    }
+
+    @Nested
+    class CartItem {
+        @Test
+        void testCartItem() {
+            CartPage cartPage = addItemToCart(getHomePage(), getDriver());
+            cartPage.getItemDetails();
+            //Check correct item in the cart
+            assertTrue(getUserInfoProperty("item.name").contains(cartPage.getItemName()));
+            //Check that item of the selected quantity is successfully added to cart
+            assertEquals(getWebAppProperty("title.itemInTheCart"), cartPage.getAddedToCartItemTitle());
+        }
+
+        @Nested
+        class DeliveryInfo {
+            @Test
+            void testDeliveryInfoSubmitting() {
+                CheckoutDeliveryOptionsPage deliveryOptionsPage = submitDeliveryInfoWithItemInCart(getHomePage(), getDriver());
+                //Check that user is landed to the Delivery Options page after successful delivery info submitting
+                assertEquals(getWebAppProperty("title.deliveryOptionsPage"), deliveryOptionsPage.getTitle());
+            }
+
+            @Nested
+            class DeliveryOptions {
+                @Test
+                void testDeliveryOptionsSubmitting() {
+                    CheckoutDeliveryOptionsPage deliveryOptionsPage = new CheckoutDeliveryOptionsPage(getDriver());
+                    CheckoutPaymentPage paymentPage = deliveryOptionsPage.submitDeliveryOption();
+                    //Check that user is landed to the Payment page after successful delivery option submitting
+                    assertEquals(getWebAppProperty("title.paymentMethodPage"), paymentPage.getTitle());
+                }
+
+                @Nested
+                class PaymentAndPlaceOrder {
+                    @Test
+                    void testPaymentInfoSubmittingAndOrderPlacing() {
+                        ThankYouPage thankYouPage = placeOrder(getHomePage(), getDriver());
+                        //Check that user is landed to the Home page with the success block after successfully payment info submitting
+                        assertEquals(getWebAppProperty("title.successfulOrder"), thankYouPage.getPlacedOrderTitle());
+                        //Check placed order info displaying
+                        assertEquals(getWebAppProperty("title.orderNumber"), thankYouPage.getOrderInfo());
+                    }
+                }
+            }
+        }
+    }
+}

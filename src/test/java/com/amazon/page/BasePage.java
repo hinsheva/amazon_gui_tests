@@ -22,7 +22,9 @@ public abstract class BasePage {
     }
 
     void inputData(By locator, String inputData) {
-        getElement(locator).sendKeys(inputData);
+        WebElement element = getElement(locator);
+        element.clear();
+        element.sendKeys(inputData);
     }
 
     String getElementText(By locator) {
@@ -52,12 +54,12 @@ public abstract class BasePage {
         dropDown.sendKeys(optionText);
     }
 
-    void clickTableCellValue(By locatorTable, String value){
+    void clickTableCellValue(By locatorTable, String value) {
         WebDriverWait wait = new WebDriverWait(driver, 20);
         WebElement table = wait.until(ExpectedConditions.visibilityOfElementLocated(locatorTable));
 
         List<WebElement> rows = table.findElements(By.tagName("tr"));
-        for(WebElement row: rows) {
+        for (WebElement row : rows) {
             List<WebElement> cells = row.findElements(By.tagName("td"));
             for (WebElement cell : cells) {
                 if (cell.getText().contains(value))

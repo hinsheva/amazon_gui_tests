@@ -30,6 +30,6 @@ public class TestInitializer {
     }
 
     @AfterAll
-    public static void tearDown() { driverManager.getDriver().close();
-    }
+    public static void tearDown() { driverManager.getDriver().close(); }
+
 }

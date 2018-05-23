@@ -1,12 +1,10 @@
 package com.amazon.test;
 
-import com.amazon.page.CartPage;
-import com.amazon.page.CheckoutDeliveryOptionsPage;
-import com.amazon.page.HomePage;
-import com.amazon.page.ThankYouPage;
+import com.amazon.page.*;
 import org.openqa.selenium.WebDriver;
 
 import static com.amazon.config.PropertiesHolder.getUserInfoProperty;
+import static com.amazon.config.PropertiesHolder.getWebAppProperty;
 
 class TestHelper {
 
@@ -39,8 +37,11 @@ class TestHelper {
         String postcode = getUserInfoProperty("user.postcode");
         String phone = getUserInfoProperty("user.testPhone");
 
-        addItemToCart(homePage,driver)
-                .proceedToCheckout()
+        if (!driver.getCurrentUrl().contains(getWebAppProperty("basketPage.url"))) {
+            addItemToCart(homePage, driver);
+        }
+        CartPage cartPage = new CartPage(driver);
+        cartPage.proceedToCheckout()
                 .fillAndSubmitDeliveryInfo(country, userName, address, city, postcode, phone);
         return new CheckoutDeliveryOptionsPage(driver);
     }
@@ -51,11 +52,13 @@ class TestHelper {
         String cardExpMonth = getUserInfoProperty("card.expirationMonth");
         String cardExpYear = getUserInfoProperty("card.expirationYear");
 
-        submitDeliveryInfoWithItemInCart(homePage, driver)
-                .submitDeliveryOption()
-                .submitPaymentMethod(userName, cardNumber, cardExpMonth, cardExpYear)
+        if (!driver.getCurrentUrl().contains(getWebAppProperty("paymentPage.url"))) {
+            submitDeliveryInfoWithItemInCart(homePage, driver)
+                    .submitDeliveryOption();
+        }
+        CheckoutPaymentPage checkoutPaymentPage = new CheckoutPaymentPage(driver);
+        checkoutPaymentPage.submitPaymentMethod(userName, cardNumber, cardExpMonth, cardExpYear)
                 .submitPayment();
-
         return new ThankYouPage(driver);
     }
 }
