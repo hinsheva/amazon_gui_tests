@@ -1,4 +1,4 @@
-package com.amazon.page;
+package com.amazon.pageObjects;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;

@@ -1,15 +1,18 @@
 package com.amazon.test;
 
 import com.amazon.config.TestInitializer;
-import com.amazon.page.*;
+import com.amazon.pageObjects.CartPage;
+import com.amazon.pageObjects.CheckoutDeliveryOptionsPage;
+import com.amazon.pageObjects.CheckoutPaymentPage;
+import com.amazon.pageObjects.ThankYouPage;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import static com.amazon.config.PropertiesHolder.getUserInfoProperty;
 import static com.amazon.config.PropertiesHolder.getWebAppProperty;
 import static com.amazon.test.TestHelper.*;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class TestSmokeAmazon extends TestInitializer {
 

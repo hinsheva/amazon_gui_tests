@@ -8,8 +8,9 @@ This set of modules is a JUnit 5.0 based framework for Web testing of **Amazon.c
 ###### To be able to run tests you have to: ######
 * install java:
 http://www.oracle.com/technetwork/java/javase/downloads/index.html
-* install web driver:
+* install web driver based on your OS:
 https://raw.githubusercontent.com/sinshev/base-test/master/jira.utils/chromedriver
+* specify path to this driver in the “src/main/resources/config.properties” configuration file
 * install ChromeBrowser
 https://www.google.com/chrome/
 * setUp in build.gradle file of the main root of your project the repository source and dependencies:
@@ -24,26 +25,32 @@ https://mvnrepository.com/repos/central
     
 ###### dependencies ######
 {
- 
-    testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.1.0'
-    testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-params', version: '5.1.0'
-    testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.1.0'
-    testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-migrationsupport', version: '5.1.0'
+    compile group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.1.0'
+    compile group: 'org.junit.jupiter', name: 'junit-jupiter-params', version: '5.1.0'
+    compile group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.1.0'
+    compile group: 'org.junit.jupiter', name: 'junit-jupiter-migrationsupport', version: '5.1.0'
 
-    testCompile group: 'org.junit.platform', name: 'junit-platform-runner', version: '1.1.0'
-    testCompile group: 'org.junit.platform', name: 'junit-platform-engine', version: '1.1.0'
-    testCompile group: 'org.junit.platform', name: 'junit-platform-launcher', version: '1.1.0'
-    testCompile group: 'org.junit.platform', name: 'junit-platform-suite-api', version: '1.1.0'
-    testCompile group: 'org.junit.platform', name: 'junit-platform-gradle-plugin', version: '1.1.0'
+    compile group: 'org.junit.platform', name: 'junit-platform-runner', version: '1.1.0'
+    compile group: 'org.junit.platform', name: 'junit-platform-engine', version: '1.1.0'
+    compile group: 'org.junit.platform', name: 'junit-platform-launcher', version: '1.1.0'
+    compile group: 'org.junit.platform', name: 'junit-platform-suite-api', version: '1.1.0'
+    compile group: 'org.junit.platform', name: 'junit-platform-gradle-plugin', version: '1.1.0'
 
-    testCompile group: 'org.junit.vintage', name: 'junit-vintage-engine', version: '5.1.0'
+    compile group: 'org.seleniumhq.selenium', name: 'selenium-server', version: '3.8.1'
+    compile group: 'org.seleniumhq.selenium', name: 'selenium-firefox-driver', version: '3.11.0'
 
-    testCompile group: 'org.seleniumhq.selenium', name: 'selenium-server', version: '3.8.1'
-    testCompile group: 'org.seleniumhq.selenium', name: 'selenium-firefox-driver', version: '3.11.0'
+    compile group: 'io.rest-assured', name: 'rest-assured', version: '3.0.6'
+    compile group: 'io.rest-assured', name: 'json-path', version: '3.0.6'
+    compile group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.1'
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: '2.9.1'
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.9.1'
     
-    testCompile 'org.slf4j:jcl-over-slf4j:1.7.25'
-    testCompile 'ch.qos.logback:logback-classic:1.2.2'
-    
+    compile group: 'org.apache.streams', name: 'streams-jira.pojo', version: '0.5.1'
+    compile group: 'org.jsonschema2pojo', name: 'jsonschema2pojo-core', version: '1.0.0-alpha2'
+
+    compile 'org.slf4j:jcl-over-slf4j:1.7.25'
+    compile 'ch.qos.logback:logback-classic:1.2.2'
 }
 
 ###### _Note: **build.gradle** file(in the main root) - Includes all repository and dependency settings_ ######

@@ -1,6 +1,6 @@
 package com.amazon.test;
 
-import com.amazon.page.*;
+import com.amazon.pageObjects.*;
 import org.openqa.selenium.WebDriver;
 
 import static com.amazon.config.PropertiesHolder.getUserInfoProperty;

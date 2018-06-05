@@ -1,6 +1,6 @@
 package com.amazon.config;
 
-import com.amazon.page.HomePage;
+import com.amazon.pageObjects.HomePage;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -25,7 +25,7 @@ public class TestInitializer {
     }
 
     @BeforeEach
-    public void setUpHomePage() {
+    protected void setUpBeforeTestMethod() {
         homePage = new HomePage(driverManager.getDriver());
     }
 
